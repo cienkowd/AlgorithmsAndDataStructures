@@ -7,5 +7,4 @@ public class QuickSortIterativeTest extends GeneralSortTest {
     public QuickSortIterativeTest() {
         super(new QuickSortIterative());
     }
-
 }

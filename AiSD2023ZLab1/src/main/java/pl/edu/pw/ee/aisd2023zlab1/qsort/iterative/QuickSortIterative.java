@@ -1,8 +1,9 @@
 package pl.edu.pw.ee.aisd2023zlab1.qsort.iterative;
 
+import pl.edu.pw.ee.aisd2023zlab1.services.Sorting;
+
 import java.util.ArrayList;
 import java.util.List;
-import pl.edu.pw.ee.aisd2023zlab1.services.Sorting;
 
 public class QuickSortIterative implements Sorting {
 
@@ -32,8 +33,8 @@ public class QuickSortIterative implements Sorting {
 
             while (n > 0) {
                 n--;
-                left = starts.get(n);
-                right = ends.get(n);
+                left = starts.remove(n);
+                right = ends.remove(n);
                 pivot = splitData(data, left, right);
 
                 if (pivot - 1 > left) {
