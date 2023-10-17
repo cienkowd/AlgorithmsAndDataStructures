@@ -43,9 +43,9 @@ public class QuickSortIterativeMedian3 implements Sorting {
                 right = ends.remove(n);
                 pivot = partition(nums, left, right);
 
-                if (pivot - 1 > left) {
+                if (pivot > left) {
                     starts.add(left);
-                    ends.add(pivot - 1);
+                    ends.add(pivot);
                     n++;
                 }
 
@@ -61,8 +61,8 @@ public class QuickSortIterativeMedian3 implements Sorting {
     private int partition(double[] nums, int start, int end) {
         int pivot = sortFirstMiddleLast(nums, start, end);
         swap(nums, start + 1, pivot);
-        pivot = start + 1;
-        int left = start + 2;
+        pivot = start;
+        int left = start + 1;
         int right = end;
 
         while (true) {
@@ -78,8 +78,6 @@ public class QuickSortIterativeMedian3 implements Sorting {
             }
             swap(nums, left, right);
         }
-
-        swap(nums, pivot, right);
         return right;
     }
 

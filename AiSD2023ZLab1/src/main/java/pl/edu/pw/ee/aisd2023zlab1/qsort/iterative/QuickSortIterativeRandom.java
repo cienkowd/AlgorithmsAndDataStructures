@@ -43,9 +43,9 @@ public class QuickSortIterativeRandom implements Sorting {
                 right = ends.remove(n);
                 pivot = partition(data, left, right);
 
-                if (pivot - 1 > left) {
+                if (pivot > left) {
                     starts.add(left);
-                    ends.add(pivot - 1);
+                    ends.add(pivot);
                     n++;
                 }
 
@@ -76,7 +76,6 @@ public class QuickSortIterativeRandom implements Sorting {
             }
             swap(nums, left, right);
         }
-        swap(nums, pivot, right);
         return right;
     }
 

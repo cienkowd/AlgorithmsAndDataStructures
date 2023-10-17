@@ -45,9 +45,9 @@ public class QuickSortIterativeWithInSort implements Sorting {
                 } else {
                     pivot = partition(data, left, right);
 
-                    if (pivot - 1 > left) {
+                    if (pivot > left) {
                         starts.add(left);
-                        ends.add(pivot - 1);
+                        ends.add(pivot);
                         n++;
                     }
 
@@ -62,24 +62,24 @@ public class QuickSortIterativeWithInSort implements Sorting {
     }
 
     private int partition(double[] nums, int start, int end) {
-        int left = start + 1;
-        int right = end;
-        int pivot = start;
+        int left = start - 1;
+        int right = end + 1;
+        double pivot = nums[start];
 
         while (true) {
-            while (left <= right && nums[left] < nums[pivot]) {
-                left++;
+
+            while (nums[++left] < pivot) {
             }
 
-            while (left <= right && nums[right] >= nums[pivot]) {
-                right--;
+            while (nums[--right] > pivot) {
             }
-            if (left >= right) {
+
+            if (left < right) {
+                swap(nums, left, right);
+            } else {
                 break;
             }
-            swap(nums, left, right);
         }
-        swap(nums, pivot, right);
         return right;
     }
 
