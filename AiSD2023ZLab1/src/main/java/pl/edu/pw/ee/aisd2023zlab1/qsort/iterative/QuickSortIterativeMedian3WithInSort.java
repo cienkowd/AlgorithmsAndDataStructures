@@ -1,5 +1,6 @@
 package pl.edu.pw.ee.aisd2023zlab1.qsort.iterative;
 
+import pl.edu.pw.ee.aisd2023zlab1.InsertionSort;
 import pl.edu.pw.ee.aisd2023zlab1.services.Sorting;
 
 import java.util.ArrayList;
@@ -7,12 +8,12 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 
-public class QuickSortIterativeWithInSort implements Sorting {
+public class QuickSortIterativeMedian3WithInSort implements Sorting {
 
     @Override
     public void sort(double[] nums) {
         validateParams(nums);
-        quickSortWithInSort(nums);
+        quickSortMedian3WithInSort(nums);
     }
 
     private void validateParams(double[] nums) {
@@ -21,7 +22,7 @@ public class QuickSortIterativeWithInSort implements Sorting {
         }
     }
 
-    private void quickSortWithInSort(double[] data) {
+    private void quickSortMedian3WithInSort(double[] data) {
         List<Integer> starts = new ArrayList<>();
         List<Integer> ends = new ArrayList<>();
 
@@ -60,36 +61,48 @@ public class QuickSortIterativeWithInSort implements Sorting {
             }
         }
     }
-
     private int partition(double[] nums, int start, int end) {
-        int left = start - 1;
-        int right = end + 1;
-        double pivot = nums[start];
+        int pivot = sortFirstMiddleLast(nums, start, end);
+        swap(nums, start + 1, pivot);
+        pivot = start;
+        int left = start + 1;
+        int right = end;
 
         while (true) {
-
-            while (nums[++left] < pivot) {
+            while (left <= right && nums[left] < nums[pivot]) {
+                left++;
             }
 
-            while (nums[--right] > pivot) {
+            while (left <= right && nums[right] >= nums[pivot]) {
+                right--;
             }
-
-            if (left < right) {
-                swap(nums, left, right);
-            } else {
+            if (left >= right) {
                 break;
             }
+            swap(nums, left, right);
         }
         return right;
     }
 
-    private void swap(double[] nums, int firstId, int secondId) {
-        if (firstId != secondId) {
+    private int sortFirstMiddleLast(double[] nums, int start, int end) {
+        int middle = start + ((end - start) / 2) + twoPlus(start, end);
+        double[] threeElements = new double[]{nums[start], nums[middle], nums[end]};
 
-            double firstVal = nums[firstId];
-            nums[firstId] = nums[secondId];
-            nums[secondId] = firstVal;
+        InsertionSort ThreeSort = new InsertionSort();
+        ThreeSort.sort(threeElements);
+
+        nums[start] = threeElements[0];
+        nums[middle] = threeElements[1];
+        nums[end] = threeElements[2];
+
+        return middle;
+    }
+
+    private int twoPlus(int left, int right) {
+        if (right - left == 1) {
+            return 1;
         }
+        return 0;
     }
 
     private void insertionSort(double[] nums, int left, int right) {
@@ -105,4 +118,14 @@ public class QuickSortIterativeWithInSort implements Sorting {
             nums[j + 1] = tmp;
         }
     }
+
+    private void swap(double[] nums, int firstId, int secondId) {
+        if (firstId != secondId) {
+
+            double firstVal = nums[firstId];
+            nums[firstId] = nums[secondId];
+            nums[secondId] = firstVal;
+        }
+    }
 }
+

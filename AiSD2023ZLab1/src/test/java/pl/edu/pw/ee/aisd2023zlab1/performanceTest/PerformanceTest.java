@@ -8,6 +8,7 @@ import org.junit.Test;
 import pl.edu.pw.ee.aisd2023zlab1.InsertionSort;
 import pl.edu.pw.ee.aisd2023zlab1.SelectionSort;
 import pl.edu.pw.ee.aisd2023zlab1.qsort.iterative.QuickSortIterativeMedian3;
+import pl.edu.pw.ee.aisd2023zlab1.qsort.iterative.QuickSortIterativeMedian3WithInSort;
 import pl.edu.pw.ee.aisd2023zlab1.qsort.iterative.QuickSortIterativeRandom;
 import pl.edu.pw.ee.aisd2023zlab1.qsort.iterative.QuickSortIterativeWithInSort;
 import pl.edu.pw.ee.aisd2023zlab1.qsort.recursive.QuickSortRecursiveHoare;
@@ -29,13 +30,14 @@ public abstract class PerformanceTest {
     private List<Sorting> getListOfSorters() {
         List<Sorting> sorters = new ArrayList<>();
 
-        sorters.add(new InsertionSort());
-        sorters.add(new SelectionSort());
-        sorters.add(new QuickSortRecursiveHoare());
-        sorters.add(new QuickSortRecursiveLomuto());
-        sorters.add(new QuickSortIterativeRandom());
-        sorters.add(new QuickSortIterativeMedian3());
+//        sorters.add(new InsertionSort());
+//        sorters.add(new SelectionSort());
+//        sorters.add(new QuickSortRecursiveHoare());
+//        sorters.add(new QuickSortRecursiveLomuto());
+//        sorters.add(new QuickSortIterativeRandom());
+//        sorters.add(new QuickSortIterativeMedian3());
         sorters.add(new QuickSortIterativeWithInSort());
+//        sorters.add(new QuickSortIterativeMedian3WithInSort());
 
         return sorters;
     }
