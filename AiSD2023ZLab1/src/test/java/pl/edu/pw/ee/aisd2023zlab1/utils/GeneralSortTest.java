@@ -1,6 +1,6 @@
 package pl.edu.pw.ee.aisd2023zlab1.utils;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 import pl.edu.pw.ee.aisd2023zlab1.services.Sorting;
 
 import java.util.Random;

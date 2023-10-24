@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/2023Z_AISD_git_gr5.iml" filepath="$PROJECT_DIR$/.idea/2023Z_AISD_git_gr5.iml" />
       <module fileurl="file://$PROJECT_DIR$/AiSD2023ZLab1/AiSD2023ZLab1.iml" filepath="$PROJECT_DIR$/AiSD2023ZLab1/AiSD2023ZLab1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AiSD2023ZLab2/AiSD2023ZLab2.iml" filepath="$PROJECT_DIR$/AiSD2023ZLab2/AiSD2023ZLab2.iml" />
     </modules>
   </component>
 </project>

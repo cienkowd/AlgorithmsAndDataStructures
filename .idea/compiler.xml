@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="AiSD2023ZLab1" />
+        <module name="AiSD2023ZLab2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="AiSD2023ZLab1" target="1.8" />
+      <module name="AiSD2023ZLab2" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
