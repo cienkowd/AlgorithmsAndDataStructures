@@ -36,24 +36,15 @@ public class PerformanceTest {
     }
 
     private int[] getAllHashSizes() {
-        int n = 8;
+        int n = N_VARIANTS;
         int[] hashSizes = new int[n];
         int initSize = INIT_SIZE;
         int multiplier;
-        int[] primary = {4099,
-                8209,
-                16411,
-                32797,
-                65543,
-                131101,
-                262147,
-                524309
-        };
 
         for (int i = 0; i < n; i++) {
-//            multiplier = (int) Math.pow(2, i);
-//            hashSizes[i] = initSize * multiplier;
-            hashSizes[i] = primary[i];
+            multiplier = (int) Math.pow(2, i);
+            hashSizes[i] = initSize * multiplier;
+//            hashSizes[i] = primary[i];
         }
         return hashSizes;
     }
