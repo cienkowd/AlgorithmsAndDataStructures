@@ -18,6 +18,6 @@ public class HashQuadraticProbing<T extends Comparable<T>> extends HashOpenAddre
 
         int hashValue = key % m;
 
-        return (hashValue + i * i) % m;
+        return ((hashValue + i + i * i) % m) % Integer.MAX_VALUE;
     }
 }
