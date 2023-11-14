@@ -138,6 +138,16 @@ public class RbtMapTest {
     }
 
     @Test
+    public void shouldReturnNullResultWhenGettingNotExistingKey() {
+        //when
+        tree = new RedBlackTree<>();
+        tree.get(1);
+
+        //then
+        assertThat(tree.get(1)).isEqualTo(null);
+    }
+
+    @Test
     public void testSizeAfterInsertion() {
         //given
         String newElem = "P. Czarnek";
