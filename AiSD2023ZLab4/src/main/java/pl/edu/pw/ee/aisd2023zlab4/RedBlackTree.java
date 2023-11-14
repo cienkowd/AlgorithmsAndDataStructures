@@ -7,6 +7,8 @@ public class RedBlackTree<K extends Comparable<K>, V> {
 
     private Node<K, V> root;
 
+    private int currentNumOfPut = 0;
+
     private int nElems;
 
     public V get(K key) {
@@ -33,14 +35,58 @@ public class RedBlackTree<K extends Comparable<K>, V> {
 
     public void put(K key, V value) {
         validateParams(key, value);
+        currentNumOfPut = 0;
         root = put(root, key, value);
         root.setColor(BLACK);
+    }
+
+    public void deleteMin() {
+        if (root == null) {
+            return;
+        }
+
+        root = deleteMin(root);
+        nElems--;
+
+        if (root != null) {
+            root.setColor(BLACK);
+        }
     }
 
     private void validateKey(K key) {
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null.");
         }
+    }
+
+    private Node<K, V> deleteMin(Node<K, V> node) {
+        if (node.getLeft() == null) {
+            return null;
+        }
+
+        if (!isRed(node.getLeft()) && !isRed(node.getLeft().getLeft())) {
+            node = reorganizeRedToLeft(node);
+        }
+
+        Node<K, V> deleteResult = deleteMin(node.getLeft());
+        node.setLeft(deleteResult);
+
+        return reorganizeTree(node);
+    }
+
+    private Node<K, V> reorganizeRedToLeft(Node<K, V> node) {
+        changeColors(node);
+
+        if (isRed(node.getRight().getLeft())) {
+
+            Node<K, V> rotatedRight = rotateRight(node.getRight());
+            node.setRight(rotatedRight);
+
+            node = rotateLeft(node);
+            changeColors(node);
+        }
+
+        return node;
     }
 
     private boolean shouldCheckOnTheLeft(K key, Node<K, V> node) {
@@ -58,6 +104,8 @@ public class RedBlackTree<K extends Comparable<K>, V> {
     }
 
     private Node<K, V> put(Node<K, V> node, K key, V value) {
+        currentNumOfPut++;
+
         if (node == null) {
             nElems++;
             return new Node(key, value);
@@ -145,9 +193,17 @@ public class RedBlackTree<K extends Comparable<K>, V> {
     }
 
     private void changeColors(Node<K, V> node) {
-        node.setColor(RED);
-        node.getLeft().setColor(BLACK);
-        node.getRight().setColor(BLACK);
+        swapColor(node);
+        swapColor(node.getLeft());
+        swapColor(node.getRight());
+    }
+
+    private void swapColor(Node<K, V> node) {
+        if (node.isRed()) {
+            node.setColor(BLACK);
+        } else {
+            node.setColor(RED);
+        }
     }
 
     private boolean isBlack(Node<K, V> node) {

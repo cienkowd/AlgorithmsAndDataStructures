@@ -31,6 +31,57 @@ public class RbtMapTest {
     }
 
     @Test
+    public void shouldDeleteCorrectPutValue() {
+        //given
+        tree = new RedBlackTree<>();
+        //when
+        tree.put(1, "value1");
+        tree.put(2, "value2");
+        tree.put(3, "value3");
+
+        tree.deleteMin();
+
+        //then
+        assertThat(tree.get(1)).isEqualTo(null);
+        assertThat(tree.get(2)).isEqualTo("value2");
+        assertThat(tree.get(3)).isEqualTo("value3");
+    }
+
+    @Test
+    public void testSizeAfterSettingValueAndNextDeleteValue() {
+        //given
+        tree = new RedBlackTree<>();
+        String newElem = "value";
+
+        // when
+        int nOfElemsBeforePut = tree.getnElems();
+        for (int i = 0; i < 10000; i++)
+            tree.put(i, newElem + i);
+        int nOfElemsAfterPut = tree.getnElems();
+        for (int i = 0; i < 10000; i++)
+            tree.deleteMin();
+        int nOfElemsAfterDelete = tree.getnElems();
+
+        // then
+        assertThat(nOfElemsBeforePut).isEqualTo(0);
+        assertThat(nOfElemsAfterPut).isEqualTo(10000);
+        assertThat(nOfElemsAfterDelete).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldNotDeleteFromNullTree() {
+        //given
+        tree = new RedBlackTree<>();
+
+        //when
+        int nOfElemsBeforeDelete = tree.getnElems();
+        tree.deleteMin();
+        int nOfElemsAfterDelete = tree.getnElems();
+        //then
+        assertThat(nOfElemsBeforeDelete).isEqualTo(nOfElemsAfterDelete);
+    }
+
+    @Test
     public void shouldThrowExceptionWhenSettingValueWithNullKey() {
         //given
         String value = null;
