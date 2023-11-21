@@ -16,7 +16,9 @@ import pl.edu.pw.ee.aisd2023zlab4.services.MapInterface;
 public class RbtMapPerformanceTest {
 
     private static final Logger LOG = Logger.getLogger(RbtMapPerformanceTest.class.getName());
-    private final String filename = "rbtPerformanceResults.txt";
+    private final String filename = "rbtPerformanceResultsDescending.txt";
+
+    private static int descendingValue = 1_000_000;
 
     @Before
     public void setup() {
@@ -25,7 +27,7 @@ public class RbtMapPerformanceTest {
 
     @Test
     public void countTreeHeightDependingOnDataSize() {
-        MapInterface<String, String> map = new RbtMap<>();
+        MapInterface<Integer, String> map = new RbtMap<>();
         int currentSize = 0;
         int maxSize = 1_000_000;
         int step = 100;
@@ -33,7 +35,7 @@ public class RbtMapPerformanceTest {
         int nOfPuts;
 
         while (currentSize < maxSize) {
-            putRandomData(map, step);
+            putDescendingData(map, step);
             currentSize += step;
 
             nOfPuts = getNumOfPuts(map);
@@ -57,6 +59,25 @@ public class RbtMapPerformanceTest {
         }
     }
 
+    private void putAscendingData(MapInterface<Integer, String> map, int nOfData, int step) {
+        String keyAndValue;
+
+        for (int i = step; i < (nOfData+step); i++) {
+            keyAndValue = String.valueOf(i);
+            map.setValue(i, keyAndValue);
+        }
+    }
+
+    private void putDescendingData(MapInterface<Integer, String> map, int nOfData) {
+        String keyAndValue;
+
+        for (int i = 0; i < nOfData; i++) {
+            keyAndValue = String.valueOf(descendingValue);
+            descendingValue--;
+            map.setValue(descendingValue, keyAndValue);
+        }
+    }
+
     private void saveResult(int currentSize, int nOfPuts) {
         File f = new File(filename);
 
@@ -70,7 +91,7 @@ public class RbtMapPerformanceTest {
 
     }
 
-    private int getNumOfPuts(MapInterface<String, String> map) {
+    private int getNumOfPuts(MapInterface<Integer, String> map) {
         String fieldTree = "tree";
         String fieldNumOfPuts = "currentNumOfPut";
 
