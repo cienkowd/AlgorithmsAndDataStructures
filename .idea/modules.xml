@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/2023Z_AISD_git_gr5.iml" filepath="$PROJECT_DIR$/.idea/2023Z_AISD_git_gr5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AiSD2023ZBonus/AiSD2023ZBonus.iml" filepath="$PROJECT_DIR$/AiSD2023ZBonus/AiSD2023ZBonus.iml" />
       <module fileurl="file://$PROJECT_DIR$/AiSD2023ZLab1/AiSD2023ZLab1.iml" filepath="$PROJECT_DIR$/AiSD2023ZLab1/AiSD2023ZLab1.iml" />
       <module fileurl="file://$PROJECT_DIR$/AiSD2023ZLab2/AiSD2023ZLab2.iml" filepath="$PROJECT_DIR$/AiSD2023ZLab2/AiSD2023ZLab2.iml" />
       <module fileurl="file://$PROJECT_DIR$/AiSD2023ZLab3/AiSD2023ZLab3.iml" filepath="$PROJECT_DIR$/AiSD2023ZLab3/AiSD2023ZLab3.iml" />
