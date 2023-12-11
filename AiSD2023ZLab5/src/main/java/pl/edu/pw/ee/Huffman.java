@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Huffman {
     public static void main(String[] args) {
-        String filePath = "AiSD2023ZLab5/src/main/resources/niemanie.txt";
+        String filePath = "AiSD2023ZLab5/src/main/resources/zadanie2.txt";
 
         try {
             ReadFromFile reader = new ReadFromFile(new File(filePath));
@@ -14,7 +14,8 @@ public class Huffman {
             tree.buildTree();
             Node root = tree.getRoot();
 
-            tree.dfs(root,"");
+            tree.dfs(root,"",0);
+            System.out.println(tree.getTreeCost());
         } catch (IOException e) {
             e.printStackTrace();
         }
