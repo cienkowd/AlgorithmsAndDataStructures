@@ -9,4 +9,6 @@ public interface Graph {
     int[] getNeighbours(int verticeId);
 
     int[] getVertices();
+
+    int[] getWeights(int verticeId);
 }

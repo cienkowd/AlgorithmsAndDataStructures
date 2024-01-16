@@ -16,7 +16,7 @@ public class AdjacencyMatrix implements Graph {
 
     private static final Logger LOG = Logger.getLogger(AdjacencyMatrix.class.getName());
 
-    private static final int EDGE = 1;
+    private static final int nEDGE = 0;
 
     private final String pathToGraphDataFile;
 
@@ -48,7 +48,7 @@ public class AdjacencyMatrix implements Graph {
 
             for (int col = row; col < nCols; col++) {
 
-                if (matrix[row][col] == EDGE) {
+                if (matrix[row][col] != nEDGE) {
                     nOfEdges++;
                 }
             }
@@ -68,7 +68,7 @@ public class AdjacencyMatrix implements Graph {
 
         for (int col = 0; col < nCols; col++) {
 
-            if (matrix[verticeId][col] == EDGE) {
+            if (matrix[verticeId][col] != nEDGE) {
                 neighbours.add(col);
 
             }
@@ -80,7 +80,29 @@ public class AdjacencyMatrix implements Graph {
 
         return neighboursArr;
     }
+    @Override
+    public int[] getWeights(int verticeId) {
+        List<Integer> wages = new ArrayList<>();
+        int nCols = matrix[0].length;
 
+        if (verticeId >= matrix.length) {
+            throw new IllegalArgumentException("Vertice ID does not exist!");
+        }
+
+        for (int col = 0; col < nCols; col++) {
+
+            if (matrix[verticeId][col] != nEDGE) {
+                wages.add(matrix[verticeId][col]);
+
+            }
+        }
+
+        int[] wagesArr = wages.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
+
+        return wagesArr;
+    }
     @Override
     public int[] getVertices() {
         int nOfVertices = getNumOfVertices();
@@ -96,7 +118,7 @@ public class AdjacencyMatrix implements Graph {
 
     private void readGraph() {
         try (FileReader fileReader = new FileReader(pathToGraphDataFile);
-                BufferedReader reader = new BufferedReader(fileReader);) {
+             BufferedReader reader = new BufferedReader(fileReader);) {
 
             int[] colsRows = findShape(reader);
 
@@ -117,7 +139,6 @@ public class AdjacencyMatrix implements Graph {
         int lineId = 1;
 
         int[] shape = parseLine(data, lineId);
-
         return shape;
     }
 
@@ -141,8 +162,8 @@ public class AdjacencyMatrix implements Graph {
             int[] data = parseLine(line, lineCounter.getAndIncrement());
             int srcId = data[0];
             int dstId = data[1];
-
-            matrix[srcId][dstId] = EDGE;
+            int wage = data[2];
+            matrix[srcId][dstId] = wage;
         });
     }
 
@@ -151,16 +172,37 @@ public class AdjacencyMatrix implements Graph {
         String[] dataArr = line.split(separator);
 
         int[] data = Arrays.stream(dataArr).mapToInt(Integer::parseInt).toArray();
+        int expectedNumOfData = 3;
+        int expectedNumOfDataWithoutWage = 2;
+        if(lineId == 1) {
+            if (data.length != expectedNumOfDataWithoutWage) {
+                String errMsg = format("Incorrect result of parsing line (lineId: %d, data.length: %d)!", lineId, data.length);
 
-        int expectedNumOfData = 2;
+                throw new RuntimeException(errMsg);
+            }
 
-        if (data.length != expectedNumOfData) {
-            String errMsg = format("Incorrect result of parsing line (lineId: %d, data.length: %d)!", lineId, data.length);
+            return data;
 
-            throw new RuntimeException(errMsg);
+        } else {
+            if(data.length == expectedNumOfData) {
+                return data;
+
+            } else if(data.length == expectedNumOfDataWithoutWage) {
+                int[] dataWithoutWage = new int[3];
+
+                dataWithoutWage[0] = data[0];
+                dataWithoutWage[1] = data[1];
+                dataWithoutWage[2] = 1;
+
+                return dataWithoutWage;
+
+            } else {
+                String errMsg = format("Incorrect result of parsing line (lineId: %d, data.length: %d)!", lineId, data.length);
+
+                throw new RuntimeException(errMsg);
+            }
         }
 
-        return data;
     }
 
     private void logAndThrowError(String errMsg, Throwable cause) {

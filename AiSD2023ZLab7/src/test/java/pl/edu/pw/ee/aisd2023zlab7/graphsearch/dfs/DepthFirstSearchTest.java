@@ -7,6 +7,8 @@ import pl.edu.pw.ee.aisd2023zlab7.data.input.AdjacencyMatrix;
 import pl.edu.pw.ee.aisd2023zlab7.data.input.Graph;
 import pl.edu.pw.ee.aisd2023zlab7.data.outcome.GraphDfsResult;
 import pl.edu.pw.ee.aisd2023zlab7.graphsearch.services.GraphSearch;
+
+import static pl.edu.pw.ee.aisd2023zlab7.utils.ConstPathsToFiles.PATH_GRAPH_3_3;
 import static pl.edu.pw.ee.aisd2023zlab7.utils.ConstPathsToFiles.PATH_GRAPH_9_9;
 
 public class DepthFirstSearchTest {
@@ -33,8 +35,19 @@ public class DepthFirstSearchTest {
         assertThat(result.getPrevVertices()).containsExactly(new int[]{-1, 0, 1, 2, 3, 4, 2, -1, 7});
     }
 
+    @Test
     public void should_ReturnDfsResult_When_GraphIsConnected() {
-        // TODO
+        // given
+        Graph graph = new AdjacencyMatrix(PATH_GRAPH_3_3);
+        int startVerticeId = 0;
+
+        // when
+        GraphDfsResult result = (GraphDfsResult) graphSearch.searchGraphPaths(graph, startVerticeId);
+
+        // then
+        assertThat(result.getInputOrder()).containsExactly(new int[]{1, 2, 4});
+        assertThat(result.getOutputOrder()).containsExactly(new int[]{6, 3, 5});
+        assertThat(result.getPrevVertices()).containsExactly(new int[]{-1, 0, 0});
     }
 
 }

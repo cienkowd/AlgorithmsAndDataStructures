@@ -1,6 +1,5 @@
 package pl.edu.pw.ee.aisd2023zlab7.data.input;
 
-import java.util.Arrays;
 import static java.util.Arrays.stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -160,15 +159,15 @@ public class AdjacencyMatrixTest {
 
     @ParameterizedTest
     @CsvSource({
-        "0, '1, 4'",
-        "1, '0, 2'",
-        "2, '1, 3, 6'",
-        "3, '2, 4'",
-        "4, '0, 3, 5'",
-        "5, '4'",
-        "6, '2'",
-        "7, '8'",
-        "8, '7'"
+            "0, '1, 4'",
+            "1, '0, 2'",
+            "2, '1, 3, 6'",
+            "3, '2, 4'",
+            "4, '0, 3, 5'",
+            "5, '4'",
+            "6, '2'",
+            "7, '8'",
+            "8, '7'"
     })
     public void should_ReturnNeighbours_When_NotAllNeighboursAreConnected(int verticeId, String expectedNeighboursAsStr) {
         // given
@@ -182,7 +181,30 @@ public class AdjacencyMatrixTest {
 
         assertThat(neighbours).containsExactly(expectedNeighbours);
     }
+    @ParameterizedTest
+    @CsvSource({
+            "0, '3, 6'",
+            "1, '2, 2'",
+            "2, '1, 9, 3'",
+            "3, '7, 5'",
+            "4, '5, 2, 4'",
+            "5, '5'",
+            "6, '2'",
+            "7, '9'",
+            "8, '8'"
+    })
+    public void should_ReturnWages_When_NotAllNeighboursAreConnected(int verticeId, String expectedWagesAsStr) {
+        // given
+        graph = new AdjacencyMatrix(PATH_GRAPH_9_9);
 
+        // when
+        int[] wages = graph.getWeights(verticeId);
+
+        // then
+        int[] expectedWages = splitStringToIntArr(expectedWagesAsStr);
+
+        assertThat(wages).containsExactly(expectedWages);
+    }
     @Test
     public void should_ReturnAllVertices_When_GraphIsCorrect() {
         // given
